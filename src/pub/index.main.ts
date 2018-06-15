@@ -1,5 +1,7 @@
 /// <reference path="lib/jquery.d.ts" />
 /// <reference path="lib/signal.ts" />
+/// <reference path="lib/tangle.d.ts" />
+
 module app {
 
 var $c = (name : string, ns? : string) => {
@@ -762,3 +764,18 @@ $('.regions>li').hover(
   });
 
 }
+
+// Tangle
+$(document).ready(function () {
+    var element = document.getElementById("example");
+
+    var tangle = new Tangle(element, {
+        initialize: function () {
+            this.cookies = 4;
+            this.caloriesPerCookie = 50;
+        },
+        update: function () {
+            this.calories = this.cookies * this.caloriesPerCookie;
+        }
+    });
+});
