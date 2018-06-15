@@ -4,6 +4,21 @@
 
 module app {
 
+function debounce(func, wait, immediate) {
+  var timeout;
+  return function(...args) {
+    var context = this;
+    var later = function() {
+      timeout = null;
+      if (!immediate) func.apply(context, args);
+    };
+    var callNow = immediate && !timeout;
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+    if (callNow) func.apply(context, args);
+  };
+};
+
 var $c = (name : string, ns? : string) => {
   return ns ? $(document.createElementNS(ns, name)) : $(document.createElement(name));
 };
@@ -66,13 +81,20 @@ class Model {
   private pending = {};
   private prefixes = {};
 
-  load() {
+  loadGrid(name: string) {
+    console.log("LOADING GRID");
     window['model'] = this;
-    $.getJSON(BASEURL + 'norm.json', (grid : Grid) => {
+    $.getJSON(BASEURL + name, (grid : Grid) => {
       this.grid = grid;
       this.gridDidLoad.raise(this);
     });
+  }
 
+  debouncedLoadGrid = debounce(this.loadGrid, 200, false);
+
+  load(name: string) {
+    this.loadGrid(name);
+    window['model'] = this;
     $.getJSON(BASEURL + 'z/root.json', (zips : { [index : string] : ZipPref }) => {
       this.zips = zips;
       this.prefixes[''] = true;
@@ -745,7 +767,8 @@ class View {
 var model = new Model,
     view = new View(model);
 
-model.load();
+var mapName: string = 'norm.json';
+model.load(mapName);
 
 var Show = (e : JQuery, scroll : boolean) => {
 };
@@ -763,21 +786,29 @@ $('.regions>li').hover(
     view.hide();
   });
 
-}
-
-// Tangle
+  // Tangle
 $(document).ready(function () {
-    var element = document.getElementById("definition");
+  var element = document.getElementById("definition");
 
-    var tangle = new Tangle(element, {
-        initialize: function () {
-          this.avgMin = 55;
-          this.avgMax = 75;
-          this.min = 45;
-          this.max = 85;
-        },
-        update: function () {
-            this.info = [this.avgMin, this.avgMax, this.min, this.max].join();
-        }
-    });
+  var tangle = new Tangle(element, {
+      initialize: function () {
+        this.avgMin = 55;
+        this.avgMax = 75;
+        this.min = 45;
+        this.max = 85;
+      },
+      update: function () {
+        // TODO - don't load data on every change!
+        console.log("UPDATING");
+          if (mapName !== 'cool.json') {
+            mapName = 'cool.json';
+            model.debouncedLoadGrid(mapName);
+          } else if (mapName !== 'warm.json') {
+            mapName = 'warm.json';
+            model.debouncedLoadGrid(mapName);
+          }
+          this.info = [this.avgMin, this.avgMax, this.min, this.max].join();
+      }
+  });
 });
+}
