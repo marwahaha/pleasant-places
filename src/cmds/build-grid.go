@@ -10,6 +10,8 @@ import (
   "math"
   "os"
   "path/filepath"
+  "strconv"
+  "strings"
   "util"
 )
 
@@ -34,10 +36,26 @@ var (
 )
 
 // All known temperature preferences
-var TempPrefs = []*TempPref{
-  // LikeItCool,
-  LikeItNorm,
-  // LikeItWarm,
+
+func SetupTempPrefs() ([]*TempPref) {
+  var TempPrefs = []*TempPref{}
+  for i := 0; i < 5; i++ {
+    for j := 0; j < 5; j++ {
+      for k := 0; k < 5; k++ {
+        for l := 0; l < 5; l++ {
+          avgMin := 45+5*i
+          avgMax := 65+5*j
+          min := 35+5*k
+          max := 75+5*l
+          msgSlice := []string {strconv.Itoa(avgMin), strconv.Itoa(avgMax), strconv.Itoa(min), strconv.Itoa(max)}
+          msg := strings.Join(msgSlice, ",")
+          fmt.Printf("%#v\n",msg)
+          TempPrefs = append(TempPrefs, &TempPref{float64(avgMin), float64(avgMax), float64(min), float64(max), msg})
+        }
+      }
+    }
+  }
+  return TempPrefs
 }
 
 // Declares a grid of certain width & height with a list of
@@ -509,7 +527,7 @@ func WriteStatsFiles(dir string, store *gsod.Store, grid *Grid, tp *TempPref) er
   }
 
   for i, year := range store.Years {
-    fmt.Printf("%d\n", year)
+    fmt.Printf("%d-%s\n", year, tp.Name)
     if err := store.ForEachSummaryInYear(year, func(s *gsod.Summary) error {
       month := s.Day.Month() - 1
       p := &m[s.Station.Id()][i][month]

@@ -767,7 +767,7 @@ class View {
 var model = new Model,
     view = new View(model);
 
-var mapName: string = 'norm.json';
+var mapName: string = '55,75,45,85.json';
 model.load(mapName);
 
 var Show = (e : JQuery, scroll : boolean) => {
@@ -798,16 +798,8 @@ $(document).ready(function () {
         this.max = 85;
       },
       update: function () {
-        // TODO - don't load data on every change!
-        console.log("UPDATING");
-          if (mapName !== 'cool.json') {
-            mapName = 'cool.json';
-            model.debouncedLoadGrid(mapName);
-          } else if (mapName !== 'warm.json') {
-            mapName = 'warm.json';
-            model.debouncedLoadGrid(mapName);
-          }
-          this.info = [this.avgMin, this.avgMax, this.min, this.max].join();
+        this.info = [this.avgMin, this.avgMax, this.min, this.max].join();
+        model.debouncedLoadGrid(this.info + ".json");
       }
   });
 });
