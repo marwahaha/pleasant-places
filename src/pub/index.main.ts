@@ -767,15 +767,17 @@ $('.regions>li').hover(
 
 // Tangle
 $(document).ready(function () {
-    var element = document.getElementById("example");
+    var element = document.getElementById("definition");
 
     var tangle = new Tangle(element, {
         initialize: function () {
-            this.cookies = 4;
-            this.caloriesPerCookie = 50;
+          this.avgMin = 55;
+          this.avgMax = 75;
+          this.min = 45;
+          this.max = 85;
         },
         update: function () {
-            this.calories = this.cookies * this.caloriesPerCookie;
+            this.info = [this.avgMin, this.avgMax, this.min, this.max].join();
         }
     });
 });
