@@ -81,13 +81,22 @@ class Model {
   private pending = {};
   private prefixes = {};
 
+  private grids = {};
   loadGrid(name: string) {
     console.log("LOADING GRID");
     window['model'] = this;
-    $.getJSON(BASEURL + name, (grid : Grid) => {
-      this.grid = grid;
+    console.log(this.grids);
+    if (this.grids[name]) {
+      console.log("FOUND GRID");
+      this.grid = this.grids[name];
       this.gridDidLoad.raise(this);
-    });
+    } else {
+      $.getJSON(BASEURL + name, (grid : Grid) => {
+        this.grids[name] = grid;
+        this.grid = grid;
+        this.gridDidLoad.raise(this);
+      });
+    }
   }
 
   debouncedLoadGrid = debounce(this.loadGrid, 200, false);
