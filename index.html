@@ -1,0 +1,92 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>The Pleasant Places to Live</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="index.css" />
+    <style type="text/css">
+        body {
+          font-family: 'Lato', sans-serif;
+          font-size: 16px;
+          color: #444;
+          line-height: 1.5;
+        }
+        #e .d {
+          margin: 0 0;
+        }
+        a {
+          color: #999;
+        }
+        a:hover {
+          color: #333;
+        }
+        h1 {
+          font-size: 32px;
+          border-bottom: 1px solid #eee;
+          padding-bottom: 10px;
+          margin: 0 0 10px 0;
+        }
+        p {
+          margin: 0;
+          color: #999;
+        }
+        em {
+          font-weight: bold;
+        }
+        #e {
+          width: 900px;
+          margin: 0 auto;
+        }
+    </style>
+  </head>
+  <body>
+
+    <div id="e">
+      <div class="d">
+        <h1>THE PLEASANT PLACES TO LIVE</h1>
+        <h3>Where in the U.S. will you find the most &ldquo;pleasant&rdquo; days in a year?</h3>
+        <p>
+          “pleasant” here means:
+          <ul id="definition">
+            <li>the mean temperature was between (<span data-var="avgMin" class="TKAdjustableNumber" data-min="45" data-max="65" data-step="5">° F</span> and <span data-var="avgMax" class="TKAdjustableNumber" data-min="65" data-max="85" data-step="5">° F</span>)</li>
+            <li>the minimum temperature was above <span data-var="min" class="TKAdjustableNumber" data-min="35" data-max="55" data-step="5">° F</span></li>
+            <li>the maximum temperature was below <span data-var="max" class="TKAdjustableNumber" data-min="75" data-max="95" data-step="5">° F</span></li>
+            <li>there was no significant precipitation or snow depth</li>
+          </ul>
+        </p>
+        <p>
+          This was <a href="http://www.kellegous.com/j/2014/02/03/pleasant-places/" target="_blank">originally published in Feb 2014</a> using <a href="https://data.noaa.gov/dataset/dataset/global-surface-summary-of-the-day-gsod" target="_blank">GSOD data</a> from 2011-2017. It was later made interactive with <a href="http://worrydream.com/Tangle/" target="_blank">Tangle</a>.
+        </p>
+        <br/>
+      </div>
+
+      <div id="zips">
+        <div class="searchgrp">
+          <input class="text" type="search" placeholder="zip code (i.e. 30032)" maxlength="5">
+          <span class="icon"></span>
+        </div>
+      </div>
+
+      <div>
+        <svg xmlns="http://www.w3.org/2000/svg" id="root"></svg>
+          <div id="call">
+            <div class="nib"><div></div></div>
+            <div class="text"></div>
+            <div class="graf"></div>
+            <div class="labs"></div>
+          </div>
+      </div>
+
+    </div>
+    <script src="https://cdn.rawgit.com/worrydream/Tangle/master/Tangle.js"></script>
+    <link rel="stylesheet" href="https://cdn.rawgit.com/worrydream/Tangle/master/TangleKit/TangleKit.css" type="text/css">
+    <script type="text/javascript" src="https://cdn.rawgit.com/worrydream/Tangle/master/TangleKit/mootools.js"></script>
+    <script type="text/javascript" src="https://cdn.rawgit.com/worrydream/Tangle/master/TangleKit/sprintf.js"></script>
+    <script type="text/javascript" src="https://cdn.rawgit.com/worrydream/Tangle/master/TangleKit/BVTouchable.js"></script>
+    <script type="text/javascript" src="https://cdn.rawgit.com/worrydream/Tangle/master/TangleKit/TangleKit.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script src="index.js"></script>
+  </body>
+</html>
