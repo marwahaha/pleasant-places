@@ -93,7 +93,7 @@ var app;
         e.addEventListener(t, f, false);
     };
 
-    var SVGNS = 'https://www.w3.org/2000/svg', BASEURL = '2011-to-2017/', MONTHS = ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'], TRANSFORMS = ['-webkit-transform', '-moz-transform', '-ms-transform', '-o-transform', 'transform'];
+    var SVGNS = 'http://www.w3.org/2000/svg', BASEURL = '2011-to-2017/', MONTHS = ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'], TRANSFORMS = ['-webkit-transform', '-moz-transform', '-ms-transform', '-o-transform', 'transform'];
 
     var UnpackPoints = function (p) {
         return p.map(function (v) {
